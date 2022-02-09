@@ -12,7 +12,7 @@ class Candidat extends Model
     protected $guarded = [];
     public function users()
     {
-        return $this->belongsToMany(User::class, "vote");
+        return $this->belongsToMany(User::class, "votes");
     }
     public function elections()
     {

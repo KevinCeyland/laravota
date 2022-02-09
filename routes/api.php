@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Metier\CandidatController;
-use App\Http\Controllers\Metier\ElectionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Metier\VoteController;
+use App\Http\Controllers\Metier\CandidatController;
+use App\Http\Controllers\Metier\ElectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,10 @@ Route::group(['prefix' => 'election'], function () {
 Route::group(['prefix' => 'candidat'], function () {
     Route::get('/index/{idElection}', [CandidatController::class, 'index'])->name('candidat.index')->middleware('auth');
 });
+
+
+Route::group(['prefix' => 'vote'], function () {
+    Route::get('/voteCandidat/{idCandidat}', [VoteController::class, 'voteCandidat'])->name('vote.voteCandidat')->middleware('auth');
+});
+
+
