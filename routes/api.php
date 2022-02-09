@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Metier\ElectionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
     Route::get('/me', [AuthController::class, 'me'])->name('auth.me')->middleware('auth');
+});
+
+
+Route::group(['prefix' => 'election'], function () {
+    Route::get('/index', [ElectionController::class, 'index'])->name('election.me')->middleware('auth');
 });
