@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\PartiePolitique;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Candidat extends Model
 {
@@ -15,6 +16,10 @@ class Candidat extends Model
     }
     public function elections()
     {
-        return $this->belongsToMany(Election::class, "vote");
+        return $this->belongsToMany(Election::class);
+    }
+    public function partie_politique()
+    {
+        return $this->belongsTo(PartiePolitique::class);
     }
 }

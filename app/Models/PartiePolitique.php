@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Candidat;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Election extends Model
+class PartiePolitique extends Model
 {
     use HasFactory;
     protected $guarded = [];
     public function candidats()
     {
-        return $this->belongsToMany(Candidat::class);
+        return $this->hasMany(Candidat::class);
     }
 }

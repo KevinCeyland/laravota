@@ -2,10 +2,32 @@
 
 namespace App\Http\Controllers\Metier;
 
-use App\Http\Controllers\Controller;
+use App\Models\Candidat;
+use App\Helpers\ParamHelper;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CandidatController extends Controller
 {
-    //
+     /**
+     * Récupère tous les candidats et les retournes sous formes d'array
+     *
+     * @return Array
+     */
+    public function index($idElection) {
+        $candidats = Candidat::whereHas("elections", function($q) use ($idElection) {
+            $q->where('election_id', '=', $idElection);
+        })->get();
+        $arrayCandidats = array();
+        foreach ($candidats as $key => $value) {
+            $arrayCandidats[$key]['id'] = $value['id'];
+            $arrayCandidats[$key]['nom'] = $value['nom'];
+            $arrayCandidats[$key]['prenom'] = $value['prenom'];
+            $arrayCandidats[$key]['date_naissance'] = $value['date_naissance'];
+            $arrayCandidats[$key]['programme'] = $value['programme'];
+            $arrayCandidats[$key]['photo'] = ParamHelper::getImageStringAttribute($value['photo'], "image/" . pathinfo($value['photo'], PATHINFO_EXTENSION), 'photoCandidat');
+
+        }
+        return response()->json(['candidats' => $arrayCandidats]);
+    }
 }

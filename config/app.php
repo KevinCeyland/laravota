@@ -229,7 +229,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'ParamHelper' => App\Helpers\ParamHelper::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Metier\CandidatController;
 use App\Http\Controllers\Metier\ElectionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,5 +26,9 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 Route::group(['prefix' => 'election'], function () {
-    Route::get('/index', [ElectionController::class, 'index'])->name('election.me')->middleware('auth');
+    Route::get('/index', [ElectionController::class, 'index'])->name('election.index')->middleware('auth');
+});
+
+Route::group(['prefix' => 'candidat'], function () {
+    Route::get('/index/{idElection}', [CandidatController::class, 'index'])->name('candidat.index')->middleware('auth');
 });
