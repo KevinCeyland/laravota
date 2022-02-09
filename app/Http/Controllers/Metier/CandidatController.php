@@ -25,7 +25,7 @@ class CandidatController extends Controller
             $arrayCandidats[$key]['prenom'] = $value['prenom'];
             $arrayCandidats[$key]['date_naissance'] = $value['date_naissance'];
             $arrayCandidats[$key]['programme'] = $value['programme'];
-            $arrayCandidats[$key]['photo'] = ParamHelper::getImageStringAttribute($value['photo'], "image/" . pathinfo($value['photo'], PATHINFO_EXTENSION), 'photoCandidat');
+            $arrayCandidats[$key]['photo'] = ParamHelper::getImageStringAttribute($value['photo'], "img/" . pathinfo($value['photo'], PATHINFO_EXTENSION), 'photoCandidat');
 
         }
         return response()->json(['candidats' => $arrayCandidats]);
