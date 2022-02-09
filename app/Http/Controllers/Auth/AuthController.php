@@ -34,7 +34,7 @@ class AuthController extends Controller
             }
 
             $validated = $validator->validated();
-            $role = Role::where('libelle', '=', $validated['role'])->first();
+            $role = Role::where('libelle', '=', "Utilisateur")->first();
 
             $user =  User::create([
                 'carte_identite' => $validated['carte_identite'],
