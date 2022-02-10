@@ -23,6 +23,11 @@ class ElectionController extends Controller
             $arrayElections[$key]['id'] = $value['id'];
             $arrayElections[$key]['libelle'] = $value['libelle'];
             $arrayElections[$key]['dateElection'] = $value['dateElection'];
+            $arrayElections[$key]['arrayCandidats'] = array();
+            foreach ($value->candidats as $nb => $val) {
+                $arrayElections[$key]['arrayCandidats'][$nb] = $val->id;
+            }
+
         }
         return response()->json(['elections' => $arrayElections]);
     }
@@ -36,6 +41,7 @@ class ElectionController extends Controller
             $validator = Validator::make($request->all(), [
                 'libelle' => 'required|string',
                 'dateElection' => 'required',
+                'arrayCandidats' => "nullable",
 
             ]);
 
@@ -53,6 +59,7 @@ class ElectionController extends Controller
             $election->libelle = $validated['libelle'];
             $election->dateElection = $validated['dateElection'];
             $election->save();
+            $election->candidats()->sync($validated['arrayCandidats']);
 
             $arrayElection['id'] = $election->id;
             $arrayElection['libelle'] = $election->libelle;
@@ -74,7 +81,7 @@ class ElectionController extends Controller
         $validator = Validator::make($request->all(), [
             'libelle' => 'required|string',
             'dateElection' => 'required',
-
+            'arrayCandidats' => 'nullable',
         ]);
 
         if ($validator->fails()) {
@@ -91,6 +98,8 @@ class ElectionController extends Controller
         $election->libelle = $validated['libelle'];
         $election->dateElection = $validated['dateElection'];
         $election->save();
+
+        $election->candidats()->sync($validated['arrayCandidats']);
 
         $arrayElection['id'] = $election->id;
         $arrayElection['libelle'] = $election->libelle;
