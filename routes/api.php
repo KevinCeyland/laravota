@@ -28,6 +28,9 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'election'], function () {
     Route::get('/index', [ElectionController::class, 'index'])->name('election.index')->middleware('auth');
+    Route::post('/store',  [ElectionController::class, 'store'])->name('election.store')->middleware('admin');
+    Route::put('/update/{id}',  [ElectionController::class, 'update'])->name('election.update')->middleware('admin');
+    Route::delete('/delete/{id}',  [ElectionController::class, 'delete'])->name('election.delete')->middleware('admin');
 });
 
 Route::group(['prefix' => 'candidat'], function () {
