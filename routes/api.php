@@ -31,8 +31,11 @@ Route::group(['prefix' => 'election'], function () {
 });
 
 Route::group(['prefix' => 'candidat'], function () {
-    Route::get('/indexAll', [CandidatController::class, 'indexAll'])->name('candidat.indexAll')->middleware('auth');
+    Route::get('/indexAll', [CandidatController::class, 'indexAll'])->name('candidat.indexAll')->middleware('admin');
     Route::get('/index/{idElection}', [CandidatController::class, 'index'])->name('candidat.index')->middleware('auth');
+    Route::post('/store',  [CandidatController::class, 'store'])->name('candidat.store')->middleware('admin');
+    Route::put('/update/{id}',  [CandidatController::class, 'update'])->name('candidat.update')->middleware('admin');
+    Route::delete('/delete/{id}',  [CandidatController::class, 'delete'])->name('candidat.delete')->middleware('admin');
 });
 
 
