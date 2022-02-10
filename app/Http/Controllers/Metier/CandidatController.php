@@ -23,7 +23,23 @@ class CandidatController extends Controller
             $arrayCandidats[$key]['id'] = $value['id'];
             $arrayCandidats[$key]['nom'] = $value['nom'];
             $arrayCandidats[$key]['prenom'] = $value['prenom'];
+            $arrayCandidats[$key]['partie_politique'] = $value->partie_politique->libelle;
             $arrayCandidats[$key]['date_naissance'] = $value['date_naissance'];
+            $arrayCandidats[$key]['programme'] = $value['programme'];
+            $arrayCandidats[$key]['photo'] = ParamHelper::getImageStringAttribute($value['photo'], "img/" . pathinfo($value['photo'], PATHINFO_EXTENSION), 'photoCandidat');
+
+        }
+        return response()->json(['candidats' => $arrayCandidats]);
+    }
+    public function indexAll() {
+        $candidats = Candidat::all();
+        $arrayCandidats = array();
+        foreach ($candidats as $key => $value) {
+            $arrayCandidats[$key]['id'] = $value['id'];
+            $arrayCandidats[$key]['nom'] = $value['nom'];
+            $arrayCandidats[$key]['prenom'] = $value['prenom'];
+            $arrayCandidats[$key]['date_naissance'] = $value['date_naissance'];
+            $arrayCandidats[$key]['partie_politique'] = $value->partie_politique->libelle;
             $arrayCandidats[$key]['programme'] = $value['programme'];
             $arrayCandidats[$key]['photo'] = ParamHelper::getImageStringAttribute($value['photo'], "img/" . pathinfo($value['photo'], PATHINFO_EXTENSION), 'photoCandidat');
 

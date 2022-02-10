@@ -31,6 +31,7 @@ Route::group(['prefix' => 'election'], function () {
 });
 
 Route::group(['prefix' => 'candidat'], function () {
+    Route::get('/indexAll', [CandidatController::class, 'indexAll'])->name('candidat.indexAll')->middleware('auth');
     Route::get('/index/{idElection}', [CandidatController::class, 'index'])->name('candidat.index')->middleware('auth');
 });
 
