@@ -18,6 +18,10 @@ class Candidat extends Model
     {
         return $this->belongsToMany(Election::class);
     }
+    public function votes()
+    {
+        return $this->belongsToMany(Election::class, "votes")->withPivot('election_id');
+    }
     public function partie_politique()
     {
         return $this->belongsTo(PartiePolitique::class);

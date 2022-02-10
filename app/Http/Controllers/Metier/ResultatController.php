@@ -10,12 +10,12 @@ class ResultatController extends Controller
 {
     public function getResultatsElection($idElection) {
         $elections = Election::find($idElection);
-        $candidatsElections = $elections->candidats;
+        $electionsVotes = $elections->votes;
         $arrayResultats = array();
-        foreach ($candidatsElections as $key => $value) {
+        foreach ($electionsVotes as $key => $value) {
             $arrayResultats[$key]['name'] = $value['prenom'] . " " . $value['nom'];
-            if($value->users) {
-                $nbVotes = count($value->users);
+            if($value->votes) {
+                $nbVotes = count($value->pivot->where('election_id', "=", $idElection)->get());
                 $arrayResultats[$key]['data'] = array($nbVotes);
             }
         }
