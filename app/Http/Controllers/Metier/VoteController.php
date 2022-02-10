@@ -9,22 +9,23 @@ use Illuminate\Support\Facades\Auth;
 
 class VoteController extends Controller
 {
-    public function voteCandidat($idCandidat)
+    public function voteCandidat(Request $request)
     {
-        try {
+
             if (Auth::user()->role->libelle != "Administrateur") {
                 $user = User::find(Auth::user()->id);
-                if (count($user->candidats) > 0) {
-                    return response()->json(["messageVoteDouble" => "Vous ne pouvez pas voter une seconde fois !"]);
+                foreach ($user->candidats as $key => $value) {
+                    if($value->pivot->election_id == $request->idElection && $value->pivot->user_id == Auth::user()->id) {
+                        return response()->json(["messageVoteDouble" => "Vous ne pouvez pas voter une seconde fois dans cette éléction !"]);
+                    }
                 }
-                $user->candidats()->attach($idCandidat);
+
+                $user->candidats()->attach($request->idCandidat, array("election_id" => $request->idElection));
 
                 return response()->json(["message" => "Le vote à bien été pris en compte !"]);
             } else {
                 return response()->json(["messageError" => "Vous ne pouvez pas voter en tant qu'administrateur !"]);
             }
-        } catch (\Throwable $th) {
-            return response()->json(["messageError" => "Une erreur est survenue lors du vote, veuillez réessayer plus tard !"]);
-        }
+
     }
 }

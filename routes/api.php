@@ -54,7 +54,7 @@ Route::group(['prefix' => 'resultat'], function () {
 
 
 Route::group(['prefix' => 'vote'], function () {
-    Route::get('/voteCandidat/{idCandidat}', [VoteController::class, 'voteCandidat'])->name('vote.voteCandidat')->middleware('auth');
+    Route::post('/voteCandidatElection', [VoteController::class, 'voteCandidat'])->name('vote.voteCandidat')->middleware('auth');
 });
 
 
