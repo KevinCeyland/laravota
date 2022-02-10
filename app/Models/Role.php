@@ -9,8 +9,8 @@ class Role extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function vote()
+    public function users()
     {
-        return $this->belongsToMany(User::class, "vote");
+        return $this->hasMany(User::class);
     }
 }

@@ -22,6 +22,9 @@ class AuthController extends Controller
                 'nom' => 'required|string',
                 'prenom' => 'required|string',
                 'password' => 'required',
+                'rue' => 'required|string',
+                'codePostal' => 'required|string',
+                'ville' => 'required|string',
                 'email' => 'required|email',
             ]);
 
@@ -39,6 +42,9 @@ class AuthController extends Controller
             $user =  User::create([
                 'carte_identite' => $validated['carte_identite'],
                 'nom' => $validated['nom'],
+                'rue' => $validated['rue'],
+                'codePostal' => $validated['codePostal'],
+                'ville' => $validated['ville'],
                 'prenom' => $validated['prenom'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
@@ -80,6 +86,9 @@ class AuthController extends Controller
             'email' => $user->email,
             'prenom' => $user->prenom,
             'nom' => $user->nom,
+            'rue' => $user->rue,
+            'codePostal' => $user->codePostal,
+            'ville' => $user->ville,
             'id' => $user->id,
             'role' => $user->role->libelle,
         ]);

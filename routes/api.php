@@ -7,6 +7,7 @@ use App\Http\Controllers\Metier\VoteController;
 use App\Http\Controllers\Metier\CandidatController;
 use App\Http\Controllers\Metier\ElectionController;
 use App\Http\Controllers\Metier\ResultatController;
+use App\Http\Controllers\Metier\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,12 @@ Route::group(['prefix' => 'election'], function () {
     Route::post('/store',  [ElectionController::class, 'store'])->name('election.store')->middleware('admin');
     Route::put('/update/{id}',  [ElectionController::class, 'update'])->name('election.update')->middleware('admin');
     Route::delete('/delete/{id}',  [ElectionController::class, 'delete'])->name('election.delete')->middleware('admin');
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/index', [UserController::class, 'index'])->name('user.index')->middleware('admin');
+    Route::put('/update/{id}',  [UserController::class, 'update'])->name('user.update')->middleware('admin');
+    Route::delete('/delete/{id}',  [UserController::class, 'delete'])->name('user.delete')->middleware('admin');
 });
 
 Route::group(['prefix' => 'candidat'], function () {
