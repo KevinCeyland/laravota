@@ -9,16 +9,20 @@ use App\Http\Controllers\Controller;
 class ResultatController extends Controller
 {
     public function getResultatsElection($idElection) {
-        $elections = Election::find($idElection);
-        $electionsVotes = $elections->votes;
+
+        $election = Election::find($idElection);
+        $selectionsCandidat = $election->candidats;
+
         $arrayResultats = array();
-        foreach ($electionsVotes as $key => $value) {
+
+        foreach ($selectionsCandidat as $key => $value) {
             $arrayResultats[$key]['name'] = $value['prenom'] . " " . $value['nom'];
-            if($value->votes) {
-                $nbVotes = count($value->pivot->where('election_id', "=", $idElection)->get());
-                $arrayResultats[$key]['data'] = array($nbVotes);
+            if($value->users) {
+                $nbVotes = count($value->users()->where('election_id', "=", $idElection)->get());
             }
+            $arrayResultats[$key]['data'] = array($nbVotes);
         }
+
         return response()->json(['resultat' => $arrayResultats]);
     }
 }
